@@ -66,7 +66,10 @@ test_set = test_datagen.flow_from_directory(
 
 classifier.fit_generator(
         training_set,
-        steps_per_epoch=8000,
-        epochs=25,
-        validation_data=test_set,
-        validation_steps=2000)
+        steps_per_epoch = (8000/32),
+        epochs = 25,
+        validation_data = test_set,
+        validation_steps = (2000/32),
+        use_multiprocessing = True)
+
+# Part 3 - Making new prediction
