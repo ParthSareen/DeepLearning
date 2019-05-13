@@ -11,12 +11,14 @@ many layers- dropout reg.
 """
 # libs
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
 # Data preprocessing
 dataset_train = pd.read_csv('Google_Stock_Price_Train.csv')
-training_set = dataset_train.iloc[: ,1:2].values
+training_set = dataset_train.iloc[:,1:2].values
 #using normalization for rnn with sigmoid
 
 #feature scaling
@@ -39,7 +41,7 @@ for i in range(60, 1258):
 X_train, y_train = np.array(X_train), np.array(y_train)
 
 # Reshaping the data, can change num of indicators at the end
-# X_train.shape[0] = lines of x_train, X_train.shape[1] = columns of x_train
+#X_train.shape[0] = lines of x_train, X_train.shape[1] = columns of x_train
 # last is number of indicators
 
 X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
@@ -102,7 +104,7 @@ inputs = sc.transform(inputs)
 x_test = []
 # upper bound is for 20 days
 for i in range(60, 80):
-    x_test.append(training_set_scaled[i - 60 : i, 0])
+    x_test.append(inputs[i - 60 : i, 0])
 x_test = np.array(x_test)
 x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
