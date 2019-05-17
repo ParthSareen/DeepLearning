@@ -26,7 +26,7 @@ from sklearn.preprocessing import MinMaxScaler
 sc = MinMaxScaler(feature_range = (0,1))
 training_set_scaled = sc.fit_transform(training_set)
 
-#data structure with 6- timesteps and 1 output
+#data structure with 60 timesteps and 1 output
 """
 60 timesteps of past information to understand trends from
 basically 3 months of data
@@ -69,7 +69,7 @@ regressor.add(LSTM(units=50, return_sequences=True))
 regressor.add(Dropout(0.2)) # ignore 20% of neurons, 10 neurons ignored
 
 # fourth layer, no more sequences returned
-regressor.add(LSTM(units=50, return_sequences=False))
+regressor.add(LSTM(units=50))
 regressor.add(Dropout(0.2)) # ignore 20% of neurons, 10 neurons ignored
 
 # Output layer, one neural, stock price at time t+1
@@ -82,7 +82,7 @@ regressor.compile(optimizer='adam', loss='mean_squared_error')
 
 # Fitting the RNN to the Training set
 # x -> input, y_train -> ground truth?, epochs forward and back prop
-regressor.fit(X_train, y_train, epochs=100, batch_size=32)
+regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
 
 # Prediction
 dataset_test = pd.read_csv('Google_Stock_Price_Test.csv')
@@ -113,8 +113,8 @@ predicted_stock_price = regressor.predict(x_test)
 predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
 # Visualizing the results
-plt.plot(real_stock_price, color='red', label='Real Google Stock Price')
-plt.plot(predicted_stock_price, color='blue', label='Predicted Google Stock Price')
+plt.plot(real_stock_price, color = 'red', label = 'Real Google Stock Price')
+plt.plot(predicted_stock_price, color = 'blue', label = 'Predicted Google Stock Price')
 plt.title('Google Stock Price Prediction')
 plt.xlabel('Time')
 plt.ylabel('Google Stock Price')

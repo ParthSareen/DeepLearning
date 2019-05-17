@@ -82,6 +82,7 @@ dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis = 
 inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].values
 inputs = inputs.reshape(-1,1)
 inputs = sc.transform(inputs)
+
 X_test = []
 for i in range(60, 80):
     X_test.append(inputs[i-60:i, 0])
